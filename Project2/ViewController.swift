@@ -8,8 +8,16 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
-
+// Before working with NSTableView, make the ViewController conform to both NSTableViewData and NSTableView Delegate
+class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+    
+    @IBOutlet var Guess: NSTextField!
+    @IBOutlet var tableView: NSTableView!
+    
+    // create variables to store the number and guesses
+    var answer = ""
+    var guesses = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,6 +30,33 @@ class ViewController: NSViewController {
         }
     }
 
-
+    @IBAction func submitGuess(_ sender: Any) {
+    }
+    
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return guesses.count
+    }
+    
+    func result (for guess: String) -> String {
+        return "Result"
+    }
+    
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        guard let vw = tableView.makeView(withIdentifier: tableColumn!.identifier, owner: self) as? NSTableCellView else {
+            return nil
+        }
+            if tableColumn?.title == "Guess" {
+                //this is the Guess column, show a previous guess
+                vw.textField?.stringValue = guesses[row]
+            } else {
+                // this is the Result column, call our new method
+                vw.textField?.stringValue = result(for: guesses[row])
+        }
+        return vw
+    }
+    
+    func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
+        return false
+    }
 }
 
