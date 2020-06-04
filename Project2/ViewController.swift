@@ -14,6 +14,7 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     @IBOutlet var Guess: NSTextField!
     @IBOutlet var tableView: NSTableView!
     
+    // of note: in the lession, the @IBOutlet var is guess instead of Guess - I need to make sure I adjust all of my code accordingly
     // create variables to store the number and guesses
     var answer = ""
     var guesses = [String]()
@@ -21,6 +22,8 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        startNewGame()
+        
         // Do any additional setup after loading the view.
     }
 
@@ -57,6 +60,19 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     
     func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
         return false
+    }
+    
+    func startNewGame(){
+        Guess.stringValue = ""
+        guesses.removeAll()
+        answer = ""
+        
+        var numbers = Array(0...9)
+        numbers.shuffle()
+        
+        for _ in 0 ..< 4 {
+            answer.append(String(numbers.removeLast()))
+        }
     }
 }
 
