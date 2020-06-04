@@ -53,9 +53,18 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         
         if resultString.contains("4b") {
             let alert = NSAlert()
-            alert.messageText = "You Win!"
-            alert.informativeText = "Congratulations! Click OK to play again."
-            alert.runModal()
+            let count = guesses.count
+            alert.messageText = "You Won in \(count) guesses"
+            if count > 20 {
+                alert.informativeText = "Congratulations! Click OK to play again."
+                alert.runModal()
+            } else if count < 10 {
+                alert.informativeText = "That's Awesome! Click OK to play again"
+                alert.runModal()
+            } else {
+                alert.informativeText = "Not too shabby! Click OK to play again"
+                alert.runModal()
+            }
             
             startNewGame()
         }
