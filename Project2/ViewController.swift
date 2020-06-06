@@ -23,7 +23,7 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         super.viewDidLoad()
 
         startNewGame()
-        
+
         // Do any additional setup after loading the view.
     }
 
@@ -65,7 +65,7 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
                 alert.informativeText = "Not too shabby! Click OK to play again"
                 alert.runModal()
             }
-            
+
             startNewGame()
         }
         
@@ -122,8 +122,8 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         for _ in 0 ..< 4 {
             answer.append(String(numbers.removeLast()))
         }
+        tableView.reloadData()
     }
     
-
 }
 
